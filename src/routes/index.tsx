@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Lock AI Backend — Decision API" },
+      {
+        name: "description",
+        content:
+          "Backend-only service for Lock: POST /api/public/decision returns a validated Lock decision JSON, /api/public/health reports AI diagnostics.",
+      },
+      { property: "og:title", content: "Lock AI Backend — Decision API" },
+      {
+        property: "og:description",
+        content: "Server-side Lock decision API powered by Lovable AI. No frontend included.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: ApiIndex,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function ApiIndex() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="mx-auto max-w-2xl p-6 font-mono text-sm text-foreground">
+      <h1 className="text-base font-semibold">Lock AI Backend</h1>
+      <p className="mt-2 text-muted-foreground">
+        Backend service only. There is no UI here.
+      </p>
+      <ul className="mt-4 space-y-1">
+        <li>POST /api/public/decision — Lock decision turn (JSON in, JSON out)</li>
+        <li>GET /api/public/health — deployment and AI diagnostics</li>
+      </ul>
+    </main>
   );
 }
