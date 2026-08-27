@@ -20,7 +20,7 @@ export type LockDecisionResult =
  */
 export async function runLockDecision(
   input: LockDecisionRequest,
-  options?: { runId?: string; abortSignal?: AbortSignal },
+  options?: { runId?: string | undefined; abortSignal?: AbortSignal | undefined },
 ): Promise<LockDecisionResult> {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) {
